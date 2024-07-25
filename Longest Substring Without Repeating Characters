@@ -1,0 +1,33 @@
+Given a string s, find the length of the longest 
+substring
+ without repeating characters.
+
+Example 1:
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+
+Code:
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        #Dictionary to store the last positions of each character 
+        char_index_map = {}
+        #start of the current substring
+        start = 0
+        #Length of the longest substring
+        max_length = 0
+
+        for end in range(len(s)):
+            if s[end] in char_index_map and char_index_map[s[end]] >= start:
+                #Move the start to the right of the duplicate character's last position
+                start = char_index_map[s[end]] + 1
+            #Update the last position of the character
+            char_index_map[s[end]] = end
+            #Update the max length if necessary
+            max_length = max(max_length, end - start + 1)
+        return max_length
+
